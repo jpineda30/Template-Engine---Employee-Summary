@@ -15,13 +15,14 @@ var employees = [];
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 const options = [
-
+    
     {
+        
     type: 'rawlist',
     name: 'type',
     message: 'Select a type of employee',
     choices: [
-       new inquirer.Separator(' = licences = '),
+       new inquirer.Separator(' '),
 
        {name:"Engineer"},
        {name:"Manager"},
@@ -72,36 +73,187 @@ const optionsManager = [
     }
 ]
 
+const optionsEngineer = [
+    ...optionsEmployee,
+    {
+        type: 'input',
+        name: 'gitHub',
+        message: "What's the employee gitHub user?",
+    
+    }
+]
 
-function init(){
+const optionsIntern = [
+    ...optionsEmployee,
+    {
+        type: 'input',
+        name: 'school',
+        message: "What's the employee school?",
+    
+    }
+]
 
-    inquirer.prompt(options).then((response)=>{
+const initial = [
+   
+    {
+        type: 'rawlist',
+        name: 'response',
+        message: "Do you want to add a new employee",
+        choices: [
+
+            
+     
+            {name:"Yes"},
+            {name:"No"},
+            new inquirer.Separator('   '),
+           
+         ]
+    
+    }
+]
+
+
+//functions 
+async function inputManager(){
+
+    
+    let newEmployee = await inquirer.prompt(optionsManager).then((response) => {
+
+        var manager = new Manager();
+        manager.officeNumber = response.officeNumber;
+        manager.id = response.id;
+        manager.name = response.name;
+        manager.email = response.email;
+        employees.push(manager);
         
-        switch (response.type) {
-            case "Manager":
-                var manager = new Manager();
-    
-                inquirer.prompt(optionsManager).then((response) => {
-                    manager.officeNumber = response.officeNumber;
-                    manager.id = response.id;
-                    manager.name = response.name;
-                    manager.email = response.email;
-                    employees.push(manager);
-                    render(employees);
-                });
 
-                break;
-            default:
-                // code block
-
-        }
-    
+        return manager;
+        
     });
-    
 
+    console.log("20")
+    
 }
 
+async function inputEngineer(){
+
+    
+    let newEmployee = await inquirer.prompt(optionsEngineer).then((response) => {
+
+        var engineer = new Engineer();
+        
+        engineer.id = response.id;
+        engineer.name = response.name;
+        engineer.email = response.email;
+        engineer.github = response.gitHub;
+       
+        employees.push(engineer);
+
+        return engineer;
+        
+    });
+
+    
+    
+}
+
+async function inputIntern(){
+
+    
+    let newEmployee = await inquirer.prompt(optionsIntern).then((response) => {
+
+        var intern = new Intern(response.name,response.id,response.email,response.school);
+   
+       
+        employees.push(intern);
+
+        return intern;
+        
+    });
+
+    
+    
+}
+
+async function menu(){
+
+    let response = await inquirer.prompt(options).then((response)=>{
+             return response.type;
+     });
+     
+   return response;
+}
+
+ async function init(){
+        
+    console.log("Wealcome to Template Engine");
+    console.log("Lets create your team");
+    console.log("");
+    console.log("Lets add the manager first");
+    console.log("");
+
+    let manager = await inputManager();
+    
+    var addEmp = "Yes"; 
+
+    while(addEmp == "Yes"){
+
+        let addEmployee = await newEmployee();
+        console.log("")
+        addEmp = addEmployee;
+
+            if(addEmp == "Yes")
+            {
+                
+                if(await menu() =="Engineer")
+                {
+                    let newEmp = await inputEngineer(); 
+                }
+                else
+                {
+                    let newEmp = await inputIntern(); 
+                }
+            }
+
+        else{
+            
+
+            fs.writeFile("./output/Team.html", render(employees), (err) => {
+                if (err) throw err;
+                else console.log("HTML file created successfully");
+            });
+        }
+
+        
+       
+    }
+    
+    
+
+    
+
+    
+       
+
+    
+    
+
+  
+}  
+
+async function newEmployee()
+{
+    let addEmployee = await inquirer.prompt(initial).then(function(response){
+        return response.response;
+    });
+
+    return addEmployee;
+    
+}
+
+
 init();
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
