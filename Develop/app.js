@@ -59,6 +59,12 @@ const optionsEmployee = [
         type: 'input',
         name: 'email',
         message: "What's the e-mail of the employee?",
+        validate: (input) => {
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)) {
+                return true;
+            }
+            return "Please enter a valid email address.";
+        }
         
     }
 ];
@@ -79,6 +85,12 @@ const optionsEngineer = [
         type: 'input',
         name: 'gitHub',
         message: "What's the employee gitHub user?",
+        validate: function (answer) {
+            if (answer.length < 3) {
+                return console.log("\n Enter a valid user");
+            }
+            return true;
+        }
     
     }
 ]
@@ -89,6 +101,12 @@ const optionsIntern = [
         type: 'input',
         name: 'school',
         message: "What's the employee school?",
+        validate: function (answer) {
+            if (answer.length < 3) {
+                return console.log("\n Enter a valid school");
+            }
+            return true;
+        }
     
     }
 ]
