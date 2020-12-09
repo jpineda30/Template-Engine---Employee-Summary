@@ -222,14 +222,18 @@ async function menu(){
 
             if(addEmp == "Yes")
             {
-                
-                if(await menu() =="Engineer")
+                let option = await menu();
+                if(option =="Engineer")
                 {
                     let newEmp = await inputEngineer(); 
                 }
-                else
+                else if(option =="Intern")
                 {
                     let newEmp = await inputIntern(); 
+                }
+                else
+                {
+                    let newEmp = await inputManager(); 
                 }
             }
 
