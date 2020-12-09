@@ -5,7 +5,7 @@ class Engineer extends Employee {
 
     constructor(name,id,email,github) {
       super(name,id,email);
-      this.role = "Engineer"
+      
       this.github = github;
       
      
@@ -13,6 +13,10 @@ class Engineer extends Employee {
     getGithub(){
         return this.github;
      }; 
+
+     getRole(){
+      return "Engineer";
+   }
     
     
 }

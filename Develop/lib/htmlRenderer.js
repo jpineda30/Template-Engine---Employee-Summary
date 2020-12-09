@@ -25,16 +25,14 @@ const render = employees => {
 };
 
 const renderManager = manager => {
-  let template = fs.readFileSync(path.resolve(templatesDir, "manager.html"), "utf8");
+  var template = fs.readFileSync(path.resolve(templatesDir, "manager.html"), "utf8");
   template = replacePlaceholders(template, "name", manager.getName());
   template = replacePlaceholders(template, "role", manager.getRole());
   template = replacePlaceholders(template, "email", manager.getEmail());
   template = replacePlaceholders(template, "id", manager.getId());
   template = replacePlaceholders(template, "officeNumber", manager.getOfficeNumber());
-  var output = fs.writeFileSync(path.resolve(outputDir, "manager.html"), template, function (err) {
-    if (err) throw err;
-})
-  return output;
+  
+  return template;
 };
 
 const renderEngineer = engineer => {
@@ -58,13 +56,18 @@ const renderIntern = intern => {
 };
 
 const renderMain = html => {
+  
   const template = fs.readFileSync(path.resolve(templatesDir, "main.html"), "utf8");
+  
   return replacePlaceholders(template, "team", html);
 };
 
 const replacePlaceholders = (template, placeholder, value) => {
+
   const pattern = new RegExp("{{ " + placeholder + " }}", "gm");
+  
   return template.replace(pattern, value);
+
 };
 
 module.exports = render;

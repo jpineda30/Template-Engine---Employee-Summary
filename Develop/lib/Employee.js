@@ -7,24 +7,25 @@ class Employee {
         this.email = email;
         this.role = "Employee";
 
-        this.getName = function(){
-
-            return this.name;
-        };
-
-        this.getId=function(){
-            return this.id;
-        };
-
-        this.getEmail=function(){
-            return this.email;
-        };
-
-        this.getRole=function(){
-            return this.role;
-        };
 
     }
+
+    getName (){
+
+        return this.name;
+    };
+
+    getId(){
+        return this.id;
+    };
+
+    getEmail(){
+        return this.email;
+    };
+
+    getRole(){
+        return "Employee";
+    };
 
 }
 
