@@ -45,7 +45,7 @@ This is an aplication that takes input from the user in console and creates an H
 
 8- You can find the new HTML in the output folder.
 
-See the use of the program in this video: https://youtu.be/BMGdCUh_Ouo 
+See the use of the program in this video: https://youtu.be/QT6IDBDXdCc
 
 
 ## User info
