@@ -203,6 +203,9 @@ async function menu(){
 }
 
  async function init(){
+
+    fs.writeFileSync("./output/Team.html", render(employees), (err) => {
+    });
         
     console.log("Wealcome to Template Engine");
     console.log("Lets create your team");
@@ -236,12 +239,10 @@ async function menu(){
                 {
                     let newEmp = await inputManager(); 
                 }
-            }
-
-        else{
+            }else{
             
 
-            fs.writeFile("./output/Team.html", render(employees), (err) => {
+                fs.writeFile("./output/Team.html", render(employees), (err) => {
                 if (err) throw err;
                 else console.log("HTML file created successfully");
             });
